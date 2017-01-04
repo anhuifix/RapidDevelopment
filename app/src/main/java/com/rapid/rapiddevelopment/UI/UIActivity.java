@@ -1,9 +1,11 @@
-package com.rapid.rapiddevelopment;
+package com.rapid.rapiddevelopment.UI;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 
-public class UIActivity extends AppCompatActivity {
+import com.rapid.rapiddevelopment.R;
+
+public class UIActivity extends FragmentActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

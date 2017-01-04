@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:id="@+id/layout_footer"
+              android:layout_width="match_parent"
+              android:layout_height="55dp"
+              android:background="@color/white"
+              android:gravity="center_vertical"
+              android:orientation="vertical">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#DBDBDB"
+        />
+
+    <RadioGroup
+        android:id="@+id/group"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/foot_bar_home"
+            style="@style/main_footbar_radio"
+            android:checked="true"
+            android:drawableTop="@mipmap/ic_launcher"
+            android:text="电影"/>
+
+        <RadioButton
+            android:id="@+id/foot_bar_im"
+            style="@style/main_footbar_radio"
+            android:drawableTop="@mipmap/ic_launcher"
+            android:text="影院"/>
+
+
+        <RadioButton
+            android:id="@+id/main_footbar_user"
+            style="@style/main_footbar_radio"
+            android:drawableTop="@mipmap/ic_launcher"
+            android:text="演出"/>
+
+
+        <RadioButton
+            android:id="@+id/main_footbar_mine"
+            style="@style/main_footbar_radio"
+            android:drawableTop="@mipmap/ic_launcher"
+            android:text="我的"/>
+    </RadioGroup>
+</LinearLayout>
