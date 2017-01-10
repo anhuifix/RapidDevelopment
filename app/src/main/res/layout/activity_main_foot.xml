@@ -3,14 +3,15 @@
               android:id="@+id/layout_footer"
               android:layout_width="match_parent"
               android:layout_height="55dp"
-              android:background="@color/white"
+              android:background="@color/whint"
               android:gravity="center_vertical"
               android:orientation="vertical">
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="#DBDBDB"
+        android:layout_marginBottom="5dp"
+        android:background="#F1F1F1"
         />
 
     <RadioGroup
@@ -23,27 +24,32 @@
             android:id="@+id/foot_bar_home"
             style="@style/main_footbar_radio"
             android:checked="true"
-            android:drawableTop="@mipmap/ic_launcher"
+            android:drawableTop="@drawable/select_home_film"
             android:text="电影"/>
 
         <RadioButton
             android:id="@+id/foot_bar_im"
             style="@style/main_footbar_radio"
-            android:drawableTop="@mipmap/ic_launcher"
+            android:drawableTop="@drawable/select_home_cinema"
             android:text="影院"/>
 
 
         <RadioButton
             android:id="@+id/main_footbar_user"
             style="@style/main_footbar_radio"
-            android:drawableTop="@mipmap/ic_launcher"
+            android:drawableTop="@drawable/select_home_show"
             android:text="演出"/>
 
+        <RadioButton
+            android:id="@+id/main_footbar_discovery"
+            style="@style/main_footbar_radio"
+            android:drawableTop="@drawable/select_home_discovery"
+            android:text="发现"/>
 
         <RadioButton
             android:id="@+id/main_footbar_mine"
             style="@style/main_footbar_radio"
-            android:drawableTop="@mipmap/ic_launcher"
+            android:drawableTop="@drawable/select_home_mine"
             android:text="我的"/>
     </RadioGroup>
 </LinearLayout>

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
 
-	<item android:state_selected="true" android:color="@color/home_foot_textF"/>
-	<item android:state_pressed="true" android:color="@color/home_foot_textF"/>
-	<item android:state_checked="true" android:color="@color/home_foot_textF"/>
-	<item android:state_focused="true" android:color="@color/home_foot_textF"/>
-	<item android:color="@color/home_foot_textN"/>
+    <item android:color="#FF4D64" android:state_selected="true"/>
+    <item android:color="#FF4D64" android:state_pressed="true"/>
+    <item android:color="#FF4D64" android:state_checked="true"/>
+    <item android:color="#FF4D64" android:state_focused="true"/>
+    <item android:color="#C4C2CE"/>
 
 </selector>
