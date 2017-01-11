@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.rapid.rapiddevelopment.R;
 import com.rapid.rapiddevelopment.UI.base.BaseFragment;
 
 /**
@@ -16,6 +17,6 @@ public class ShowFragment extends BaseFragment {
 
     @Override
     public View createView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return null;
+        return inflater.inflate(R.layout.frament_show,container);
     }
 }

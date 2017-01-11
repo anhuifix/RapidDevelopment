@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.rapid.rapiddevelopment.R;
 import com.rapid.rapiddevelopment.UI.base.BaseFragment;
 
 /**
@@ -12,10 +13,10 @@ import com.rapid.rapiddevelopment.UI.base.BaseFragment;
  * Created by anhui on 2017-1-10.
  */
 
-public class DiscoveryFragment extends BaseFragment{
+public class DiscoveryFragment extends BaseFragment {
 
     @Override
     public View createView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return null;
+        return inflater.inflate(R.layout.fragment_discovery, container);
     }
 }
