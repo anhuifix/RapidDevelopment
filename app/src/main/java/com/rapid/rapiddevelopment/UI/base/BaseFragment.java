@@ -42,5 +42,12 @@ public abstract class BaseFragment extends Fragment {
         return createView(inflater, container, savedInstanceState);
     }
 
+    /**
+     * 获取界面的布局展示等
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return
+     */
     public abstract View createView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState);
 }
