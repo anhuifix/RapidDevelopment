@@ -1,22 +1,33 @@
 package com.rapid.rapiddevelopment.UI;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.view.ViewPager;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.view.KeyEvent;
+import android.widget.FrameLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 import com.rapid.rapiddevelopment.R;
 import com.rapid.rapiddevelopment.UI.base.BaseActivity;
-import com.rapid.rapiddevelopment.UI.home.view.NoScrollViewPager;
-import com.rapid.rapiddevelopment.adapter.UiPagerAdapter;
+import com.rapid.rapiddevelopment.UI.home.CinemaFragment;
+import com.rapid.rapiddevelopment.UI.home.DiscoveryFragment;
+import com.rapid.rapiddevelopment.UI.home.FilmFragment;
+import com.rapid.rapiddevelopment.UI.home.MineFragment;
+import com.rapid.rapiddevelopment.UI.home.ShowFragment;
+
+import java.util.Arrays;
+import java.util.List;
 
 import butterknife.Bind;
 
 
-public class UIActivity extends BaseActivity implements ViewPager.OnPageChangeListener {
+public class UIActivity extends BaseActivity {
 
-    @Bind(R.id.viewPager)
-    public NoScrollViewPager noViewPager = null;
+    @Bind(R.id.fragment_container)
+    public FrameLayout fragment_container;
     @Bind(R.id.main_group)
     public RadioGroup mRadioGroup = null;
     @Bind(R.id.main_footbar_film)
@@ -37,80 +48,103 @@ public class UIActivity extends BaseActivity implements ViewPager.OnPageChangeLi
     public static final int PAGE_FOUR = 3;
     public static final int PAGE_FIVE = 4;
 
-    private UiPagerAdapter uiAdapter = null;
+    private static int currSel = 0;
+
+    private Fragment mFilmFragment = new FilmFragment();
+    private Fragment mcinemaFragment = new CinemaFragment();
+    private Fragment mShowFragment = new ShowFragment();
+    private Fragment mDiscoverFragment = new DiscoveryFragment();
+    private Fragment mMineFragment = new MineFragment();
+    private List<Fragment> fragmentList = Arrays.asList(mFilmFragment, mcinemaFragment, mShowFragment, mDiscoverFragment, mMineFragment);
+
+    private FragmentManager fragmentManager;
+    public static boolean isForeground = false;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    protected void onCreate(Bundle bundle) {
+        super.onCreate(bundle);
         setContentView(R.layout.activity_main);
-        noViewPager.setCurrentItem(0);
-        initView();
+        fragmentManager = getSupportFragmentManager();
+        initFootBar();
     }
 
-    private void initView() {
-        uiAdapter = new UiPagerAdapter(getSupportFragmentManager());
-        noViewPager.setAdapter(uiAdapter);
-        noViewPager.setCurrentItem(2);
-        noViewPager.addOnPageChangeListener(this);
+    @Override
+    protected void onResume() {
+        isForeground = true;
+        super.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+        isForeground = false;
+        super.onPause();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Fragment fragment = fragmentList.get(currSel);
+        if (fragment != null) {
+            fragment.onActivityResult(requestCode, resultCode, data);
+        }
+
+    }
+
+
+    private void initFootBar() {
         mRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 switch (checkedId) {
                     case R.id.main_footbar_film:
-                        noViewPager.setCurrentItem(PAGE_ONE);
+                        currSel = 0;
                         break;
                     case R.id.main_footbar_cinema:
-                        noViewPager.setCurrentItem(PAGE_TWO);
+                        currSel = 1;
                         break;
                     case R.id.main_footbar_show:
-                        noViewPager.setCurrentItem(PAGE_THREE);
+                        currSel = 2;
                         break;
                     case R.id.main_footbar_discovery:
-                        noViewPager.setCurrentItem(PAGE_FOUR);
+                        currSel = 3;
                         break;
                     case R.id.main_footbar_mine:
-                        noViewPager.setCurrentItem(PAGE_FIVE);
-                        break;
-                    default:
+                        currSel = 4;
                         break;
                 }
+                addFragmentToStack(currSel);
             }
         });
+        addFragmentToStack(currSel);
     }
 
+    private void addFragmentToStack(int cur) {
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        Fragment fragment = fragmentList.get(cur);
+        if (!fragment.isAdded()) {
+            fragmentTransaction.add(R.id.fragment_container, fragment);
+        }
+        for (int i = 0; i < fragmentList.size(); i++) {
+            Fragment f = fragmentList.get(i);
+            if (i == cur && f.isAdded()) {
 
-    @Override
-    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                fragmentTransaction.show(f);
 
-    }
-
-    @Override
-    public void onPageSelected(int position) {
-
-    }
-
-    @Override
-    public void onPageScrollStateChanged(int state) {
-        //state的状态有三个，0表示什么都没做，1正在滑动，2滑动完毕
-        if (state == 2) {
-            switch (noViewPager.getCurrentItem()) {
-                case PAGE_ONE:
-                    mRadioFilm.setChecked(true);
-                    break;
-                case PAGE_TWO:
-                    mRadioCinema.setChecked(true);
-                    break;
-                case PAGE_THREE:
-                    mRadioShow.setChecked(true);
-                    break;
-                case PAGE_FOUR:
-                    mRadioDiscovery.setChecked(true);
-                    break;
-                case PAGE_FIVE:
-                    mRadioDiscovery.setChecked(true);
-                    break;
+            } else if (f != null && f.isAdded() && f.isVisible()) {
+                fragmentTransaction.hide(f);
             }
         }
+        fragmentTransaction.commitAllowingStateLoss();
+
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            moveTaskToBack(true);
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }
 
